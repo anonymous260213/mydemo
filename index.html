@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo for TRIC-SAE</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+  <header>
+    <h1>UniSAE: Unified Speech Attribute Editing <br> via 
+      Discrete Phonetic Posteriorgrams and <br> Disentangled Embeddings</h1>
+      <div class="header-links">
+    <a href="about:blank" target="_blank">Paper(TBA)</a>
+    <span>|</span>
+    <a href="about:blank" target="_blank">Code(TBA)</a>
+    <span>|</span>
+    <a href="about:blank" target="_blank">Dataset(TBA)</a>
+  </div>
+  </header>
+
+  <main>
+    <!-- 摘要部分 -->
+    <section class="section">
+      <h2>Abstract</h2>
+      <div class="abstract">
+        <p>
+          Speech attribute editing (SAE) aims to flexibly manipulate linguistic content, speaker identity, and emotion within a unified framework. However, existing approaches rely on opaque content units, suffer from emotional data scarcity, and struggle with speaker–emotion entanglement. We propose UniSAE, a unified architecture that integrates an autoregressive transformer for semantic modeling with a diffusion-based acoustic decoder conditioned on speaker and emotion. We introduce Discrete Phonetic PosteriorGram (DPPG), an interpretable, duration-aware representation that enables controllable word-level and phoneme-level editing. To mitigate data scarcity, we construct a large-scale synthetic emotional corpus via zero-shot generation and use it to train the full model. Experiments show that UniSAE generalizes to human-acted emotional speech and achieves strong speaker and emotion controllability with explicit semantic editing capability.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- 架构图部分 -->
+     <!--
+    <section class="section">
+      <h2>Model Architecture</h2>
+      <div class="architecture">
+        <img src="images/main.png" alt="Model Architecture Diagram">
+        <p><em>Fig 1. Overview of the proposed UniSAE framework.</em></p>
+      </div>
+    </section>-->
+
+    <!-- Demo 部分 -->
+    <section class="section demo-section">
+      <h2>Emotion + Speaker Editing</h2>
+      <p style="text-align: center;">All the prompts are from our proposed TRIC-Corpus</p>
+      <p style="text-align: center;">Attributes highlighted in the <span style="color:#2c85de">blue</span> boxes are the information to extract and preserved in the generation results</p>
+  
+      <h4><strong>1. Seen-S:</strong> </h4>
+      <h5>Prompts from the Seen-S test set. Speakers seen, text unseen, emotions seen in the training set </h5>
+      
+      <!-- Seen-S 1 -->
+      <h5>1.1 Target Emotion: <span style="color: red;">neutral </span></h5>
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th></th>
+              <th>sample</th>
+              <th>text</th>
+              <th>Speaker</th>
+              <th>Emotion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Source Speech</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/1_neutral/prompts/source/JLcorpus_female2_happy_01299.wav"></audio></td>
+              <td class="highlight">This would provide a significant and welcome boost for local employment.</td>
+              <td>JLcorpur_female2</td>
+              <td>Happy</td>
+            </tr>
+            <tr>
+              <td><strong>Speaker Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/1_neutral/prompts/spk_prompt/ESD_0016_neutral_00765.wav"></audio></td>
+              <td>He is not a pathetic figure.</td>
+              <td class="highlight">ESD_0016</td>
+              <td>Neutral</td>
+            </tr>
+            <tr>
+              <td><strong>Emotion Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/1_neutral/prompts/emo_prompt/MEAD_M039_neutral_00127.wav"></audio></td>
+              <td>She hopes to study in Britain one day.</td>
+              <td>MEAD_M039</td>
+              <td class="highlight">Neutral</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>UniSAE</th>
+              <th>EmoConv-diff</th>
+              <th>ZEST</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/1_neutral/result/unisae/ESD_0016_neutral_01299.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/1_neutral/result/emoconv-diff/ESD_0016_neutral_01299.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/1_neutral/result/zest/ESD_0016_neutral_01299.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Seen-S 2 -->
+      <h5>1.2 Target Emotion: <span style="color: red;">happy</span></h5>
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th></th>
+              <th>sample</th>
+              <th>text</th>
+              <th>Speaker</th>
+              <th>Emotion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Source Speech</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/2_happy/prompts/source/RAVDESS_15_sad_00654.wav"></audio></td>
+              <td class="highlight">I didn't have the reply.</td>
+              <td>RAVDESS_15</td>
+              <td>Neutral</td>
+            </tr>
+            <tr>
+              <td><strong>Speaker Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/2_happy/prompts/spk_prompt/TESS_YAF_neutral_00800.wav"></audio></td>
+              <td>I can't remember a lot of it.</td>
+              <td class="highlight">TESS_YAF</td>
+              <td>Neutral</td>
+            </tr>
+            <tr>
+              <td><strong>Emotion Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/2_happy/prompts/emo_prompt/MEAD_W018_happy_01982.wav"></audio></td>
+              <td>It is, however, an unlikely outcome.</td>
+              <td>MEAD_W018</td>
+              <td class="highlight">Happy</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>UniSAE</th>
+              <th>EmoConv-diff</th>
+              <th>ZEST</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/2_happy/result/unisae/TESS_YAF_happy_00654.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/2_happy/result/emoconv-diff/TESS_YAF_happy_00654.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/2_happy/result/zest/TESS_YAF_happy_00654.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Seen-S 3 -->
+      <h5>1.3 Target Emotion: <span style="color: red;">sad</span></h5>
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th></th>
+              <th>sample</th>
+              <th>text</th>
+              <th>Speaker</th>
+              <th>Emotion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Source Speech</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/3_sad/prompts/source/RAVDESS_13_angry_00697.wav"></audio></td>
+              <td class="highlight">They never gave up hope.</td>
+              <td>RAVDESS_13</td>
+              <td>Angry</td>
+            </tr>
+            <tr>
+              <td><strong>Speaker Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/3_sad/prompts/spk_prompt/TESS_YAF_neutral_00307.wav"></audio></td>
+              <td>Mr Kennedy is not a candidate for the Scottish Parliament.</td>
+              <td class="highlight">TESS_YAF</td>
+              <td>Neutral</td>
+            </tr>
+            <tr>
+              <td><strong>Emotion Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/3_sad/prompts/emo_prompt/MEAD_M028_sad_00967.wav"></audio></td>
+              <td>Five years ago its return was rejected.</td>
+              <td>MEAD_M028</td>
+              <td class="highlight">Sad</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>UniSAE</th>
+              <th>EmoConv-diff</th>
+              <th>ZEST</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/3_sad/result/unisae/TESS_YAF_sad_00697.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/3_sad/result/emoconv-diff/TESS_YAF_sad_00697.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/3_sad/result/zest/TESS_YAF_sad_00697.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Seen-S 4 -->
+      <h5>1.4 Target Emotion: <span style="color: red;">angry</span></h5>
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th></th>
+              <th>sample</th>
+              <th>text</th>
+              <th>Speaker</th>
+              <th>Emotion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Source Speech</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/4_angry/prompts/source/MEAD_M005_sad_00654.wav"></audio></td>
+              <td class="highlight">I didn't have the reply.</td>
+              <td>MEAD_M005</td>
+              <td>Sad</td>
+            </tr>
+            <tr>
+              <td><strong>Speaker Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/4_angry/prompts/spk_prompt/ESD_0013_neutral_01395.wav"></audio></td>
+              <td>Head injuries are the leading cause of death.</td>
+              <td class="highlight">ESD_0013</td>
+              <td>Neutral</td>
+            </tr>
+            <tr>
+              <td><strong>Emotion Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/4_angry/prompts/emo_prompt/MEAD_M022_angry_00115.wav"></audio></td>
+              <td>Who will perform?</td>
+              <td>MEAD_M022</td>
+              <td class="highlight">Angry</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>UniSAE</th>
+              <th>EmoConv-diff</th>
+              <th>ZEST</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/4_angry/result/unisae/ESD_0013_angry_00654.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/4_angry/result/emoconv-diff/ESD_0013_angry_00654.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/4_angry/result/zest/ESD_0013_angry_00654.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Seen-S 5 -->
+      <h5>1.5 Target Emotion: <span style="color: red;">surprised</span></h5>
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th></th>
+              <th>sample</th>
+              <th>text</th>
+              <th>Speaker</th>
+              <th>Emotion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Source Speech</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/5_surprised/prompts/source/RAVDESS_7_angry_00124.wav"></audio></td>
+              <td class="highlight">Meetings will also remain private.</td>
+              <td>RAVDESS_7</td>
+              <td>Angry</td>
+            </tr>
+            <tr>
+              <td><strong>Speaker Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/5_surprised/prompts/spk_prompt/ESD_0016_neutral_01850.wav"></audio></td>
+              <td>They had asked not to be named.</td>
+              <td class="highlight">ESD_0016</td>
+              <td>Neutral</td>
+            </tr>
+            <tr>
+              <td><strong>Emotion Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/5_surprised/prompts/emo_prompt/JLcorpus_female2_surprised_00202.wav"></audio></td>
+              <td>That decision will be made over the next couple of days.</td>
+              <td>JLcorpus_female2</td>
+              <td class="highlight">Surprised</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>UniSAE</th>
+              <th>EmoConv-diff</th>
+              <th>ZEST</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/5_surprised/result/unisae/ESD_0016_surprised_00124.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/5_surprised/result/emoconv-diff/ESD_0016_surprised_00124.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/seen_spk/5_surprised/result/zest/ESD_0016_surprised_00124.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <h4><strong>2. Unseen-S:</strong></h4>
+      <h5>Prompts from the Unseen-S test set. Speakers unseen, text unseen, emotions seen in the training set.</h5>
+      
+      <!-- Unseen-S 1 -->
+      <h5>2.1 Target Emotion: <span style="color: red;">neutral</span></h5>
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th></th>
+              <th>sample</th>
+              <th>text</th>
+              <th>Speaker</th>
+              <th>Emotion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Source Speech</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/1_neutral/prompts/source/MEAD_M025_sad_01503.wav"></audio></td>
+              <td class="highlight">I am not concerned with protection of the public.</td>
+              <td>MEAD_M025</td>
+              <td>Sad</td>
+            </tr>
+            <tr>
+              <td><strong>Speaker Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/1_neutral/prompts/spk_prompt/ESD_0019_neutral_00297.wav"></audio></td>
+              <td>We never said that we would walk through the third division.</td>
+              <td class="highlight">ESD_0019</td>
+              <td>Neutral</td>
+            </tr>
+            <tr>
+              <td><strong>Emotion Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/1_neutral/prompts/emo_prompt/RAVDESS_1_neutral_00815.wav"></audio></td>
+              <td>Having guidelines in advance is helpful.</td>
+              <td>RAVDESS_1</td>
+              <td class="highlight">Neutral</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>UniSAE</th>
+              <th>EmoConv-diff</th>
+              <th>ZEST</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/1_neutral/result/unisae/ESD_0019_neutral_01503.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/1_neutral/result/emoconv-diff/ESD_0019_neutral_01503.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/1_neutral/result/zest/ESD_0019_neutral_01503.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Unseen-S 2 -->
+      <h5>2.2 Target Emotion: <span style="color: red;">happy</span></h5>
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th></th>
+              <th>sample</th>
+              <th>text</th>
+              <th>Speaker</th>
+              <th>Emotion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Source Speech</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/2_happy/prompts/source/MEAD_W016_neutral_01299.wav"></audio></td>
+              <td class="highlight">This would provide a significant and welcome boost for local employment.</td>
+              <td>MEAD_W016</td>
+              <td>Neutral</td>
+            </tr>
+            <tr>
+              <td><strong>Speaker Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/2_happy/prompts/spk_prompt/RAVDESS_1_neutral_00307.wav"></audio></td>
+              <td>Mr Kennedy is not a candidate for the Scottish Parliament.</td>
+              <td class="highlight">RAVDESS_1</td>
+              <td>Neutral</td>
+            </tr>
+            <tr>
+              <td><strong>Emotion Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/2_happy/prompts/emo_prompt/ESD_0019_happy_01190.wav"></audio></td>
+              <td>I'd rather be in our position than Rangers.</td>
+              <td>MEAD_M023</td>
+              <td class="highlight">Happy</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>UniSAE</th>
+              <th>EmoConv-diff</th>
+              <th>ZEST</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/2_happy/result/unisae/RAVDESS_1_happy_01299.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/2_happy/result/emoconv-diff/RAVDESS_1_happy_01299.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/2_happy/result/zest/RAVDESS_1_happy_01299.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Unseen-S 3 -->
+      <h5>2.3 Target Emotion: <span style="color: red;">sad</span></h5>
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th></th>
+              <th>sample</th>
+              <th>text</th>
+              <th>Speaker</th>
+              <th>Emotion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Source Speech</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/3_sad/prompts/source/ESD_0017_happy_01850.wav"></audio></td>
+              <td class="highlight">They had asked not to be named.</td>
+              <td>ESD_0017</td>
+              <td>Happy</td>
+            </tr>
+            <tr>
+              <td><strong>Speaker Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/3_sad/prompts/spk_prompt/RAVDESS_2_neutral_00870.wav"></audio></td>
+              <td>At the time, he was a living legend.</td>
+              <td class="highlight">RAVDESS_2</td>
+              <td>Neutral</td>
+            </tr>
+            <tr>
+              <td><strong>Emotion Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/3_sad/prompts/emo_prompt/ESD_0019_sad_00967.wav"></audio></td>
+              <td>Five years ago its return was rejected.</td>
+              <td>ESD_0019</td>
+              <td class="highlight">Sad</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>UniSAE</th>
+              <th>EmoConv-diff</th>
+              <th>ZEST</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/3_sad/result/unisae/RAVDESS_2_sad_01850.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/3_sad/result/emoconv-diff/RAVDESS_2_sad_01850.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/3_sad/result/zest/RAVDESS_2_sad_01850.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Unseen-S 4 -->
+      <h5>2.4 Target Emotion: <span style="color: red;">angry</span></h5>
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th></th>
+              <th>sample</th>
+              <th>text</th>
+              <th>Speaker</th>
+              <th>Emotion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Source Speech</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/4_angry/prompts/source/ESD_0012_surprised_01724.wav"></audio></td>
+              <td class="highlight">There were no proposals on the table.</td>
+              <td>ESD_0012</td>
+              <td>Surprised</td>
+            </tr>
+            <tr>
+              <td><strong>Speaker Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/4_angry/prompts/spk_prompt/MEAD_M023_neutral_01499.wav"></audio></td>
+              <td>I would not count on it.</td>
+              <td class="highlight">MEAD_M023</td>
+              <td>Neutral</td>
+            </tr>
+            <tr>
+              <td><strong>Emotion Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/4_angry/prompts/emo_prompt/RAVDESS_1_angry_00398.wav"></audio></td>
+              <td>Scrutiny by European Parliament is limited.</td>
+              <td>RAVDESS_1</td>
+              <td class="highlight">Angry</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>UniSAE</th> 
+              <th>EmoConv-diff</th>
+              <th>ZEST</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/4_angry/result/unisae/MEAD_M023_angry_01724.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/4_angry/result/emoconv-diff/MEAD_M023_angry_01724.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/4_angry/result/zest/MEAD_M023_angry_01724.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Unseen-S 5 -->
+      <h5>2.5 Target Emotion: <span style="color: red;">surprised</span></h5>
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th></th>
+              <th>sample</th>
+              <th>text</th>
+              <th>Speaker</th>
+              <th>Emotion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Source Speech</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/5_surprised/prompts/source/ESD_0017_neutral_00114.wav"></audio></td>
+              <td class="highlight">He has a wealth of experience.</td>
+              <td>ESD_0017</td>
+              <td>Neutral</td>
+            </tr>
+            <tr>
+              <td><strong>Speaker Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/5_surprised/prompts/spk_prompt/MEAD_W011_neutral_00297.wav"></audio></td>
+              <td>We never said that we would walk through the third division.</td>
+              <td class="highlight">MEAD_W011</td>
+              <td>Neutral</td>
+            </tr>
+            <tr>
+              <td><strong>Emotion Prompt</strong></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/5_surprised/prompts/emo_prompt/RAVDESS_1_surprised_00811.wav"></audio></td>
+              <td>I think the referee was good.</td>
+              <td>RAVDESS_1</td>
+              <td class="highlight">Surprised</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>UniSAE</th>
+              <th>EmoConv-diff</th>
+              <th>ZEST</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/5_surprised/result/unisae/MEAD_W011_surprised_00114.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/5_surprised/result/emoconv-diff/MEAD_W011_surprised_00114.wav"></audio></td>
+              <td><audio controls src="audio/spk_emo_editing/unseen_spk/5_surprised/result/zest/MEAD_W011_surprised_00114.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!--Word-level content editing-->
+      <h2>Word-level content editing</h2>
+      <p style="text-align: center;">ESD speech data used. </p>
+      <p style="text-align: center;">For UniSAE, source speech, speaker prompt, emotion prompt are the same here.</p>
+      
+      <!--Insertion-->
+      <h4><strong>1. Insert  </strong></h4>
+      <!--first example-->
+      <h5> I did go and made many prisoners → I did go and made <span style="color: red; font-weight: bold;">still</span> many prisoners </h5>
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>source speech</th>
+              <th>UniSAE</th>
+              <th>VoiceCraft</th>
+              <th>SSR-Speech</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/word_edit/1_1_insert/source/0011_000002.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/1_1_insert/unisae/0001_add.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/1_1_insert/voicecraft/0001_add.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/1_1_insert/ssr-speech/0001_add.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--second example-->
+      <h5> Clear than clear water → Clear than clear <span style="color: red; font-weight: bold;">even</span> water </h5>
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>source speech</th>
+              <th>UniSAE</th>
+              <th>VoiceCraft</th>
+              <th>SSR-Speech</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/word_edit/1_2_insert/source/0016_000005.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/1_2_insert/unisae/0053_add.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/1_2_insert/voicecraft/0053_add.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/1_2_insert/ssr-speech/0053_add.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!--Delete-->
+      <h4><strong>2. Delete  </strong></h4>
+      <!--first example-->
+      <h5> Chapter <span style="color: red; font-weight: bold;">ten</span> a warm welcome → Chapter a warm welcome </h5>
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>source speech</th>
+              <th>UniSAE</th>
+              <th>VoiceCraft</th>
+              <th>SSR-Speech</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/word_edit/2_1_delete/source/0011_000011.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/2_1_delete/unisae/0009_delete.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/2_1_delete/voicecraft/0009_delete.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/2_1_delete/ssr-speech/0009_delete.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--second example-->
+      <h5> Clear than <span style="color: red; font-weight: bold;">clear</span> water → Clear than water </h5>
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>source speech</th>
+              <th>UniSAE</th>
+              <th>VoiceCraft</th>
+              <th>SSR-Speech</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/word_edit/2_2_delete/source/0016_000005.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/2_2_delete/unisae/0053_delete.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/2_2_delete/voicecraft/0053_delete.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/2_2_delete/ssr-speech/0053_delete.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <!--Sub-->
+      <h4><strong>3. Substitute </strong> </h4>
+      <!--first example-->
+      <h5> Let's make the <b>noise</b> a snake → Let's make the <span style="color: red; font-weight: bold;">things</span> a snake </h5>
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>source speech</th>
+              <th>UniSAE</th>
+              <th>VoiceCraft</th>
+              <th>SSR-Speech</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/word_edit/3_1_substitute/source/0011_001076.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/3_1_substitute/unisae/0022_replace.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/3_1_substitute/voicecraft/0022_replace.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/3_1_substitute/ssr-speech/0022_replace.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--second example-->
+      <h5> At the <b>end</b> of four → At the <span style="color: red; font-weight: bold;">places</span> of four </h5>
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>source speech</th>
+              <th>UniSAE</th>
+              <th>VoiceCraft</th>
+              <th>SSR-Speech</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/word_edit/3_2_substitute/source/0016_000719.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/3_2_substitute/unisae/0067_replace.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/3_2_substitute/voicecraft/0067_replace.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/3_2_substitute/ssr-speech/0067_replace.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+
+      <!--Word-level content editing-->
+      <h2>Phoneme-level content editing</h2>
+      <p style="text-align: center;"> ESD speech data used</p>
+      
+      <!--Insertion-->
+      <h5>1. The <span style="color: red; font-weight: bold;">nine</span> ['N', 'AY', 'N'] the eggs I keep →  The <span style="color: red; font-weight: bold;">line</span> ['L', 'AY', 'N'] the eggs I keep </h5>
+      <!--first example-->
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>source speech</th>
+              <th>UniSAE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+
+              <td><audio controls src="audio/phoneme_edit/1_n-to-l/source/0011_000001.wav"></audio></td>
+              <td><audio controls src="audio/phoneme_edit/1_n-to-l/unisae/0011_000001_n_to_l.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h5>2. And be with <span style="color: red; font-weight: bold;">you</span> Tom → <span style="color: red; font-weight: bold;">[Happy]</span> And be with <span style="color: red; font-weight: bold;">yooooou</span> Tom </h5>
+      <!--second example-->
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>source speech</th>
+              <th>speaker prompt</th>
+              <th>emotion prompt</th>
+              <th>UniSAE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/phoneme_edit/2_emo/source/source_speech/0013_000339.wav"></audio></td>
+              <td><audio controls src="audio/phoneme_edit/2_emo/source/source_speech/0013_000339.wav"></audio></td>
+              <td><audio controls src="audio/phoneme_edit/2_emo/source/emo_prompt/0011_000704.wav"></audio></td>
+              <td><audio controls src="audio/phoneme_edit/2_emo/unisae/0013_000339group_phoneme.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 anonymous
+  </footer>
+</body>
+</html>

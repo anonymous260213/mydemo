@@ -10,8 +10,8 @@
 
 <body>
   <header>
-    <h1>UniSAE: Unified Speech Attribute Editing <br> via 
-      Discrete Phonetic Posteriorgrams and <br> Disentangled Embeddings</h1>
+    <h1>UniSAE: Unified Speech Attribute Editing <br> on Speaker, Emotion and
+Low-Level Content <br> via Discrete Phonetic Posteriorgram Modelling </h1>
       <div class="header-links">
     <a href="about:blank" target="_blank">Paper(TBA)</a>
     <span>|</span>
@@ -27,7 +27,7 @@
       <h2>Abstract</h2>
       <div class="abstract">
         <p>
-          Speech attribute editing (SAE) aims to flexibly manipulate linguistic content, speaker identity, and emotion within a unified framework. However, existing approaches rely on opaque content units, suffer from emotional data scarcity, and struggle with speaker–emotion entanglement. We propose UniSAE, a unified architecture that integrates an autoregressive transformer for semantic modeling with a diffusion-based acoustic decoder conditioned on speaker and emotion. We introduce Discrete Phonetic PosteriorGram (DPPG), an interpretable, duration-aware representation that enables controllable word-level and phoneme-level editing. To mitigate data scarcity, we construct a large-scale synthetic emotional corpus via zero-shot generation and use it to train the full model. Experiments show that UniSAE generalizes to human-acted emotional speech and achieves strong speaker and emotion controllability with explicit semantic editing capability.
+        Speech attribute editing (SAE) aims to manipulate linguistic content, speaker identity, and emotion, yet remains challenging due to the attribute entanglement and limited emotional data. Existing methods edit attributes separately, leading to inconsistent and unnatural speech. We propose UniSAE, a unified framework for joint word- and phoneme-level content, speaker, and emotion editing. Primarily, acoustic sequences are compressed into duration-aware Discrete Phonetic PosteriorGram (DPPG) tokens that supervise an autoregressive editing transformer for precise, interpretable, and efficient content modeling. A diffusion-based acoustic decoder, conditioned on disentangled speaker and emotion embeddings, synthesizes the final speech. A manifold distillation pipeline builds a large-scale synthetic emotional corpus to alleviate data scarcity. Experiments demonstrate that UniSAE achieves state-of-the-art speaker and emotion controllability while supporting word and phoneme content editing.
         </p>
       </div>
     </section>

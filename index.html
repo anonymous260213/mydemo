@@ -790,14 +790,16 @@ Low-Level Content <br> via Discrete Phonetic Posteriorgram Modelling </h1>
       <p style="text-align: center;"> ESD speech data used</p>
       
       <!--Insertion-->
-      <h5>1. The <span style="color: red; font-weight: bold;">nine</span> ['N', 'AY', 'N'] the eggs I keep →  The <span style="color: red; font-weight: bold;">line</span> ['L', 'AY', 'N'] the eggs I keep </h5>
+      <h5>1. The <span style="color: red; font-weight: bold;">nine</span> (&lt;n_0&gt;) the eggs I keep →  The <span style="color: red; font-weight: bold;">line</span> (&lt;l_0&gt;) the eggs I keep </h5>
       <!--first example-->
       <div class="table-container">
         <table class="table table-bordered">
           <thead class="table-light">
             <tr>
               <th>source speech</th>
-              <th>UniSAE</th>
+              <th>UniSAE (sample 1)</th>
+              <th>UniSAE (sample 2)</th>
+              <th>UniSAE (sample 3)</th>
             </tr>
           </thead>
           <tbody>
@@ -805,12 +807,39 @@ Low-Level Content <br> via Discrete Phonetic Posteriorgram Modelling </h1>
 
               <td><audio controls src="audio/phoneme_edit/1_n-to-l/source/0011_000001.wav"></audio></td>
               <td><audio controls src="audio/phoneme_edit/1_n-to-l/unisae/0011_000001_n_to_l.wav"></audio></td>
+              <td><audio controls src="audio/phoneme_edit/1_n-to-l/unisae/0011_000001-0012_000001-l0_edit.wav"></audio></td>
+              <td><audio controls src="audio/phoneme_edit/1_n-to-l/unisae/0013_000001-0016_000001-l0_edit.wav"></audio></td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <h5>2. And be with <span style="color: red; font-weight: bold;">you</span> Tom → <span style="color: red; font-weight: bold;">[Happy]</span> And be with <span style="color: red; font-weight: bold;">yooooou</span> Tom </h5>
+      <!--Insertion-->
+      <h5>2. The <span style="color: red; font-weight: bold;">nine</span> (&lt;n_0&gt;) the eggs I keep →  The <span style="color: red; font-weight: bold;">ine</span> (&lt;n_4&gt;) the eggs I keep </h5>
+      <!--first example-->
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>source speech</th>
+              <th>UniSAE (sample 1)</th>
+              <th>UniSAE (sample 2)</th>
+              <th>UniSAE (sample 3)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+
+              <td><audio controls src="audio/phoneme_edit/2_n0-to-n4/source/0011_000001.wav"></audio></td>
+              <td><audio controls src="audio/phoneme_edit/2_n0-to-n4/unisae/0011_000001-0011_000001-n1_edit.wav"></audio></td>
+              <td><audio controls src="audio/phoneme_edit/2_n0-to-n4/unisae/0011_000001-0012_000001-n1_edit.wav"></audio></td>
+              <td><audio controls src="audio/phoneme_edit/2_n0-to-n4/unisae/0011_000001-0016_000001-n1_edit.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h5>3. And be with <span style="color: red; font-weight: bold;">you</span> Tom → <span style="color: red; font-weight: bold;">[Happy]</span> And be with <span style="color: red; font-weight: bold;">yooooou</span> Tom </h5>
       <!--second example-->
       <div class="table-container">
         <table class="table table-bordered">
@@ -824,10 +853,10 @@ Low-Level Content <br> via Discrete Phonetic Posteriorgram Modelling </h1>
           </thead>
           <tbody>
             <tr>
-              <td><audio controls src="audio/phoneme_edit/2_emo/source/source_speech/0013_000339.wav"></audio></td>
-              <td><audio controls src="audio/phoneme_edit/2_emo/source/source_speech/0013_000339.wav"></audio></td>
-              <td><audio controls src="audio/phoneme_edit/2_emo/source/emo_prompt/0011_000704.wav"></audio></td>
-              <td><audio controls src="audio/phoneme_edit/2_emo/unisae/0013_000339group_phoneme.wav"></audio></td>
+              <td><audio controls src="audio/phoneme_edit/3_emo/source/source_speech/0013_000339.wav"></audio></td>
+              <td><audio controls src="audio/phoneme_edit/3_emo/source/source_speech/0013_000339.wav"></audio></td>
+              <td><audio controls src="audio/phoneme_edit/3_emo/source/emo_prompt/0011_000704.wav"></audio></td>
+              <td><audio controls src="audio/phoneme_edit/3_emo/unisae/0013_000339group_phoneme.wav"></audio></td>
             </tr>
           </tbody>
         </table>

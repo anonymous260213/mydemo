@@ -32,6 +32,15 @@ Low-Level Content <br> via Discrete Phonetic Posteriorgram Modelling </h1>
       </div>
     </section>
 
+  <section class="section">
+    <h3>Demo Index</h3>
+    <ul class="toc">
+      <li><a href="#emotion-speaker">Emotion + Speaker Editing</a></li>
+      <li><a href="#word-editing">Word-level Content Editing</a></li>
+      <li><a href="#phoneme-editing">Phoneme- and Sub-phoneme-level Content Editing</a></li>
+      <li><a href="#joint-editing">Joint Editing</a></li>
+    </ul>
+  </section>
 
     <!-- 架构图部分 -->
      <!--
@@ -45,8 +54,8 @@ Low-Level Content <br> via Discrete Phonetic Posteriorgram Modelling </h1>
 
     <!-- Demo 部分 -->
     <section class="section demo-section">
-      <h2>Emotion + Speaker Editing</h2>
-      <p style="text-align: center;">All the prompts are from our proposed TRIC-Corpus</p>
+      <h2 id="emotion-speaker">Emotion + Speaker Editing</h2>
+      <p style="text-align: center;">All the prompts are from our proposed UniEditCorpus</p>
       <p style="text-align: center;">Attributes highlighted in the <span style="color:#2c85de">blue</span> boxes are the information to extract and preserved in the generation results</p>
   
       <h4><strong>1. Seen-S:</strong> </h4>
@@ -637,14 +646,14 @@ Low-Level Content <br> via Discrete Phonetic Posteriorgram Modelling </h1>
       </div>
 
       <!--Word-level content editing-->
-      <h2>Word-level content editing</h2>
+      <h2 id="word-editing">Word-level Content Editing</h2>
       <p style="text-align: center;">ESD speech data used. </p>
       <p style="text-align: center;">For UniSAE, source speech, speaker prompt, emotion prompt are the same here.</p>
       
       <!--Insertion-->
       <h4><strong>1. Insert  </strong></h4>
       <!--first example-->
-      <h5> I did go and made many prisoners → I did go and made <span style="color: red; font-weight: bold;">still</span> many prisoners </h5>
+      <h5> The nine the eggs I keep → The nine <span style="color: red; font-weight: bold;">already</span> the eggs I keep </h5>
       <div class="table-container">
         <table class="table table-bordered">
           <thead class="table-light">
@@ -657,10 +666,10 @@ Low-Level Content <br> via Discrete Phonetic Posteriorgram Modelling </h1>
           </thead>
           <tbody>
             <tr>
-              <td><audio controls src="audio/word_edit/1_1_insert/source/0011_000002.wav"></audio></td>
-              <td><audio controls src="audio/word_edit/1_1_insert/unisae/0001_add.wav"></audio></td>
-              <td><audio controls src="audio/word_edit/1_1_insert/voicecraft/0001_add.wav"></audio></td>
-              <td><audio controls src="audio/word_edit/1_1_insert/ssr-speech/0001_add.wav"></audio></td>
+              <td><audio controls src="audio/phoneme_edit/1_n-to-l/source/0011_000001.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/egg_insert/unisae/0000_add.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/egg_insert/voicecraft/0000_add.wav"></audio></td>
+              <td><audio controls src="audio/word_edit/egg_insert/ssr_speech/0000_add.wav"></audio></td>
             </tr>
           </tbody>
         </table>
@@ -739,7 +748,7 @@ Low-Level Content <br> via Discrete Phonetic Posteriorgram Modelling </h1>
       <!--Sub-->
       <h4><strong>3. Substitute </strong> </h4>
       <!--first example-->
-      <h5> Let's make the <b>noise</b> a snake → Let's make the <span style="color: red; font-weight: bold;">things</span> a snake </h5>
+      <h5> Let's make the <span style="color: red; font-weight: bold;">noise</span> a snake → Let's make the <span style="color: red; font-weight: bold;">things</span> a snake </h5>
       <div class="table-container">
         <table class="table table-bordered">
           <thead class="table-light">
@@ -761,7 +770,7 @@ Low-Level Content <br> via Discrete Phonetic Posteriorgram Modelling </h1>
         </table>
       </div>
       <!--second example-->
-      <h5> At the <b>end</b> of four → At the <span style="color: red; font-weight: bold;">places</span> of four </h5>
+      <h5> At the <span style="color: red; font-weight: bold;">end</span> of four → At the <span style="color: red; font-weight: bold;">places</span> of four </h5>
       <div class="table-container">
         <table class="table table-bordered">
           <thead class="table-light">
@@ -785,18 +794,18 @@ Low-Level Content <br> via Discrete Phonetic Posteriorgram Modelling </h1>
 
 
 
-      <!--Word-level content editing-->
-      <h2>Phoneme-level content editing</h2>
+      <!--Phoneme-level content editing-->
+      <h2 id="phoneme-editing">Phoneme- and Sub-Phoneme-level Content Editing</h2>
       <p style="text-align: center;"> ESD speech data used</p>
       
       <!--Insertion-->
-      <h5>1. The <span style="color: red; font-weight: bold;">nine</span> (&lt;n_0&gt;) the eggs I keep →  The <span style="color: red; font-weight: bold;">line</span> (&lt;l_0&gt;) the eggs I keep </h5>
+      <h5>1. /n/ to /l/: The <span style="color: red; font-weight: bold;">nine</span> (&lt;n_0&gt;) the eggs I keep →  The <span style="color: red; font-weight: bold;">line</span> (&lt;l_0&gt;) the eggs I keep </h5>
       <!--first example-->
       <div class="table-container">
         <table class="table table-bordered">
           <thead class="table-light">
             <tr>
-              <th>source speech</th>
+              <th>source speech (sample 1)</th>
               <th>UniSAE (sample 1)</th>
               <th>UniSAE (sample 2)</th>
               <th>UniSAE (sample 3)</th>
@@ -807,21 +816,21 @@ Low-Level Content <br> via Discrete Phonetic Posteriorgram Modelling </h1>
 
               <td><audio controls src="audio/phoneme_edit/1_n-to-l/source/0011_000001.wav"></audio></td>
               <td><audio controls src="audio/phoneme_edit/1_n-to-l/unisae/0011_000001_n_to_l.wav"></audio></td>
-              <td><audio controls src="audio/phoneme_edit/1_n-to-l/unisae/0011_000001-0012_000001-l0_edit.wav"></audio></td>
+              <td><audio controls src="audio/phoneme_edit/1_n-to-l/unisae/0013_000001-0012_000001-l0_edit.wav"></audio></td>
               <td><audio controls src="audio/phoneme_edit/1_n-to-l/unisae/0013_000001-0016_000001-l0_edit.wav"></audio></td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <!--Insertion-->
-      <h5>2. The <span style="color: red; font-weight: bold;">nine</span> (&lt;n_0&gt;) the eggs I keep →  The <span style="color: red; font-weight: bold;">ine</span> (&lt;n_4&gt;) the eggs I keep </h5>
+      <!-- /n/-> /l/ -->
+      <h5>2. Variant: The <span style="color: red; font-weight: bold;">nine</span> (&lt;n_0&gt;) the eggs I keep →  The <span style="color: red; font-weight: bold;">ine</span> (&lt;n_4&gt;) the eggs I keep </h5>
       <!--first example-->
       <div class="table-container">
         <table class="table table-bordered">
           <thead class="table-light">
             <tr>
-              <th>source speech</th>
+              <th>source speech (sample 1)</th>
               <th>UniSAE (sample 1)</th>
               <th>UniSAE (sample 2)</th>
               <th>UniSAE (sample 3)</th>
@@ -839,7 +848,102 @@ Low-Level Content <br> via Discrete Phonetic Posteriorgram Modelling </h1>
         </table>
       </div>
 
-      <h5>3. And be with <span style="color: red; font-weight: bold;">you</span> Tom → <span style="color: red; font-weight: bold;">[Happy]</span> And be with <span style="color: red; font-weight: bold;">yooooou</span> Tom </h5>
+      <!-- /n/-> /l/ -->
+      <h5>2. Duration: The <span style="color: red; font-weight: bold;">nine</span> the eggs I keep →  The <span style="color: red; font-weight: bold;">niiine</span> the eggs I keep </h5>
+      <!--first example-->
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>source speech</th>
+              <th>UniSAE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+
+              <td><audio controls src="audio/phoneme_edit/2_n0-to-n4/source/0011_000001.wav"></audio></td>
+              <td><audio controls src="audio/sub_phoneme_edit/duration/0011_000001_dur.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h5>3. /s/ to /sh/: Not much use is it, <span style="color: red; font-weight: bold;">sam</span> → </span> Not much use is it, <span style="color: red; font-weight: bold;">sham</span> </h5>
+      <!--second example-->
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>source speech (sample 1)</th>
+              <th>UniSAE (sample 1)</th>
+              <th>UniSAE (sample 2)</th>
+              <th>UniSAE (sample 3)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/sub_phoneme_edit/s_to_sh/source/0011_000069.wav"></audio></td>
+              <td><audio controls src="audio/sub_phoneme_edit/s_to_sh/0011_000069.wav"></audio></td>
+              <td><audio controls src="audio/sub_phoneme_edit/s_to_sh/0013_000069.wav"></audio></td>
+              <td><audio controls src="audio/sub_phoneme_edit/s_to_sh/0016_000069.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h5>5. /k/ to /p/: The nine the eggs I <span style="color: red; font-weight: bold;">keep</span> → </span> The nine the eggs I <span style="color: red; font-weight: bold;">geep</span> </h5>
+      <!--second example-->
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>source speech (sample 1)</th>
+              <th>UniSAE (sample 1)</th>
+              <th>UniSAE (sample 2)</th>
+              <th>UniSAE (sample 3)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/phoneme_edit/1_n-to-l/source/0011_000001.wav"></audio></td>
+              <td><audio controls src="audio/sub_phoneme_edit/k_to_g/0011_000001.wav"></audio></td>
+              <td><audio controls src="audio/sub_phoneme_edit/k_to_g/0013_000001.wav"></audio></td>
+              <td><audio controls src="audio/sub_phoneme_edit/k_to_g/0015_000001.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h5>6. /aa/ to /ey/: Then we all say <span style="color: red; font-weight: bold;">aha</span> → </span> Then we all say <span style="color: red; font-weight: bold;">ahey</span> </h5>
+      <!--second example-->
+      <div class="table-container">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>source speech (sample 1)</th>
+              <th>UniSAE (sample 1)</th>
+              <th>UniSAE (sample 2)</th>
+              <th>UniSAE (sample 3)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><audio controls src="audio/sub_phoneme_edit/aa_to_ey/source/0012_000049.wav"></audio></td>
+              <td><audio controls src="audio/sub_phoneme_edit/aa_to_ey/0012_000049.wav"></audio></td>
+              <td><audio controls src="audio/sub_phoneme_edit/aa_to_ey/0015_000049.wav"></audio></td>
+              <td><audio controls src="audio/sub_phoneme_edit/aa_to_ey/0016_000049.wav"></audio></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <!--Phoneme-level content editing-->
+      <h2 id="joint-editing">Joint Editing</h2>
+      <p style="text-align: center;"> ESD speech data used</p>
+
+      <h5>1. And be with <span style="color: red; font-weight: bold;">you</span> Tom → <span style="color: red; font-weight: bold;">[Happy]</span> And be with <span style="color: red; font-weight: bold;">yooooou</span> Tom </h5>
       <!--second example-->
       <div class="table-container">
         <table class="table table-bordered">
